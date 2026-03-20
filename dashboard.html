@@ -20,14 +20,17 @@
         .dashboard-nav {
             background-color: #2c3e50;
             color: white;
-            padding: 1rem 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
             position: sticky;
             top: 0;
             z-index: 100;
             box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+        }
+        .nav-top {
+            padding: 0.75rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
         }
         .nav-brand {
             font-size: 1.3rem;
@@ -49,6 +52,39 @@
         .nav-item a:hover, .nav-item a.active {
             background: rgba(255,255,255,0.15);
             color: white;
+        }
+        /* Header stats strip */
+        .nav-stats {
+            display: flex;
+            gap: 0;
+            overflow-x: auto;
+            background: rgba(0,0,0,0.2);
+        }
+        .nav-stat {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 0.5rem 1.5rem;
+            border-right: 1px solid rgba(255,255,255,0.08);
+            white-space: nowrap;
+            min-width: 110px;
+        }
+        .nav-stat:last-child { border-right: none; }
+        .nav-stat-value {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #fff;
+            line-height: 1.2;
+        }
+        .nav-stat-value.accent { color: #5dade2; }
+        .nav-stat-value.green  { color: #58d68d; }
+        .nav-stat-value.orange { color: #f0b27a; }
+        .nav-stat-label {
+            font-size: 0.7rem;
+            color: rgba(255,255,255,0.55);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-top: 0.1rem;
         }
 
         /* Main container */
@@ -243,6 +279,8 @@
             .nav-menu { gap: 0.75rem; }
             .nav-item a { padding: 0.3rem 0.5rem; font-size: 0.85rem; }
             .charts-grid { grid-template-columns: 1fr; }
+            .nav-stat { min-width: 90px; padding: 0.4rem 0.9rem; }
+            .nav-stat-value { font-size: 1rem; }
         }
     </style>
 </head>
@@ -250,15 +288,20 @@
 
 <!-- Navigation Component (from components/navigation.html) -->
 <nav class="dashboard-nav">
-    <div class="nav-brand">
-        <span>🏛️</span> Welsh Museums Digital Metrics
+    <div class="nav-top">
+        <div class="nav-brand">
+            <span>🏛️</span> Welsh Museums Digital Metrics
+        </div>
+        <ul class="nav-menu">
+            <li class="nav-item"><a href="#overview">Overview</a></li>
+            <li class="nav-item"><a href="#charts">Charts</a></li>
+            <li class="nav-item"><a href="#comparison">Comparison</a></li>
+            <li class="nav-item"><a href="#data">Data</a></li>
+        </ul>
     </div>
-    <ul class="nav-menu">
-        <li class="nav-item"><a href="#overview">Overview</a></li>
-        <li class="nav-item"><a href="#charts">Charts</a></li>
-        <li class="nav-item"><a href="#comparison">Comparison</a></li>
-        <li class="nav-item"><a href="#data">Data</a></li>
-    </ul>
+    <div class="nav-stats" id="nav-stats">
+        <!-- Populated by JS -->
+    </div>
 </nav>
 
 <main>
@@ -726,7 +769,36 @@ function setupStatusFilter() {
     document.getElementById('table-search').addEventListener('input', filterTable);
 }
 
-// ===== Active nav highlight =====
+// ===== Header stats strip =====
+function populateHeaderStats() {
+    const total = RAW_DATA.length;
+    const active = RAW_DATA.filter(d => d.company_status === 'Active').length;
+    const withData = RAW_DATA.filter(d => d.digital_growth_score !== null || d.digitisation_score !== null).length;
+    const avgAcc          = avg(RAW_DATA.map(d => num(d.lighthouse_accessibility)));
+    const avgPerf         = avg(RAW_DATA.map(d => num(d.lighthouse_performance)));
+    const avgDigitisation = avg(RAW_DATA.filter(d => d.digitisation_score !== null).map(d => num(d.digitisation_score)));
+    const avgReadingEase  = avg(RAW_DATA.filter(d => d.reading_ease !== null).map(d => num(d.reading_ease)));
+
+    const stats = [
+        { value: total,                               label: 'Total Museums',       cls: '' },
+        { value: active,                              label: 'Active Companies',    cls: 'green' },
+        { value: withData,                            label: 'With Digital Data',   cls: 'accent' },
+        { value: (avgAcc*100).toFixed(0)+'%',         label: 'Avg Accessibility',   cls: avgAcc  >= 0.7 ? 'green' : 'orange' },
+        { value: (avgPerf*100).toFixed(0)+'%',        label: 'Avg Performance',     cls: avgPerf >= 0.7 ? 'green' : 'orange' },
+        { value: avgDigitisation.toFixed(1),          label: 'Avg Digitisation',    cls: 'accent' },
+        { value: avgReadingEase.toFixed(1),           label: 'Avg Reading Ease',    cls: 'orange' },
+    ];
+
+    const strip = document.getElementById('nav-stats');
+    stats.forEach(s => {
+        const el = document.createElement('div');
+        el.className = 'nav-stat';
+        el.innerHTML = `<div class="nav-stat-value${s.cls ? ' '+s.cls : ''}">${s.value}</div><div class="nav-stat-label">${s.label}</div>`;
+        strip.appendChild(el);
+    });
+}
+
+
 function setupNavHighlight() {
     const sections = document.querySelectorAll('main section');
     const navLinks = document.querySelectorAll('.nav-item a');
@@ -742,6 +814,7 @@ function setupNavHighlight() {
 
 // ===== Init =====
 document.addEventListener('DOMContentLoaded', () => {
+    populateHeaderStats();
     createOverview();
     createCharts();
     setupComparison();
