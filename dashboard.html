@@ -340,6 +340,14 @@
                 <h3>Reading Ease Distribution</h3>
                 <canvas id="chart-reading"></canvas>
             </div>
+            <div class="chart-component">
+                <h3>Digital Growth Score Distribution</h3>
+                <canvas id="chart-growth-hist"></canvas>
+            </div>
+            <div class="chart-component">
+                <h3>Digital Growth Score vs Digitisation Score</h3>
+                <canvas id="chart-scatter"></canvas>
+            </div>
         </div>
     </section>
 
@@ -561,7 +569,7 @@ function createCharts() {
                 datasets: [{
                     label: 'Number of Museums',
                     data: counts,
-                    backgroundColor: '#1abc9c',
+                    backgroundColor: '#27ae60',
                     borderRadius: 4,
                 }]
             },
@@ -569,6 +577,80 @@ function createCharts() {
                 responsive: true,
                 scales: { x: { title: { display: true, text: 'Flesch Reading Ease' } }, y: { beginAtZero: true, title: { display: true, text: 'Count' } } },
                 plugins: { legend: { display: false } }
+            }
+        });
+    })();
+
+    // --- Digital growth score histogram ---
+    (function() {
+        const vals = RAW_DATA.filter(d => d.digital_growth_score !== null).map(d => num(d.digital_growth_score));
+        const bins = [0, 50, 100, 200, 500, 1000, 2000, 5000];
+        const binLabels = ['0–50','50–100','100–200','200–500','500–1k','1k–2k','2k–5k','5k+'];
+        const counts = bins.map((b, i) => {
+            const next = bins[i+1] !== undefined ? bins[i+1] : Infinity;
+            return vals.filter(v => v >= b && v < next).length;
+        });
+        const ctx = document.getElementById('chart-growth-hist').getContext('2d');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: binLabels,
+                datasets: [{
+                    label: 'Number of Museums',
+                    data: counts,
+                    backgroundColor: '#FBCE07',
+                    borderColor: '#7B4400',
+                    borderWidth: 1,
+                    borderRadius: 4,
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    x: { title: { display: true, text: 'Digital Growth Score' } },
+                    y: { beginAtZero: true, title: { display: true, text: 'Count' } }
+                },
+                plugins: { legend: { display: false } }
+            }
+        });
+    })();
+
+    // --- Scatter: digital growth vs digitisation ---
+    (function() {
+        const points = RAW_DATA
+            .filter(d => d.digital_growth_score !== null && d.digitisation_score !== null)
+            .map(d => ({ x: num(d.digitisation_score), y: num(d.digital_growth_score), label: d.name }));
+        const ctx = document.getElementById('chart-scatter').getContext('2d');
+        new Chart(ctx, {
+            type: 'scatter',
+            data: {
+                datasets: [{
+                    label: 'Museums',
+                    data: points,
+                    backgroundColor: 'rgba(251,206,7,0.65)',
+                    borderColor: '#7B4400',
+                    borderWidth: 1,
+                    pointRadius: 5,
+                    pointHoverRadius: 7,
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    x: { title: { display: true, text: 'Digitisation Score' } },
+                    y: { beginAtZero: true, title: { display: true, text: 'Digital Growth Score' } }
+                },
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        callbacks: {
+                            label: ctx => {
+                                const pt = ctx.raw;
+                                return `${pt.label}: digitisation ${pt.x}, growth ${pt.y.toFixed(1)}`;
+                            }
+                        }
+                    }
+                }
             }
         });
     })();
