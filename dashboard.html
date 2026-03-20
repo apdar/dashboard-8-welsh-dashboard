@@ -155,6 +155,48 @@
         }
         .chart-component.full-width { grid-column: 1 / -1; }
 
+        /* ===== Analysis Section ===== */
+        .analysis-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.25rem;
+        }
+        .analysis-card {
+            background: white;
+            padding: 1.25rem 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            border-left: 4px solid #FBCE07;
+        }
+        .analysis-card h3 {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: #1D1D1B;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            margin-bottom: 0.6rem;
+        }
+        .analysis-card p {
+            font-size: 0.9rem;
+            color: #444;
+            line-height: 1.6;
+        }
+        .analysis-card p strong { color: #1D1D1B; }
+        .analysis-card.highlight { border-color: #DD1D21; }
+        .analysis-card.positive  { border-color: #27ae60; }
+        .analysis-card.warning   { border-color: #e67e22; }
+        .analysis-intro {
+            background: #1D1D1B;
+            color: rgba(255,255,255,0.9);
+            padding: 1.25rem 1.75rem;
+            border-radius: 10px;
+            margin-bottom: 1.25rem;
+            font-size: 0.95rem;
+            line-height: 1.7;
+            border-left: 6px solid #FBCE07;
+        }
+        .analysis-intro strong { color: #FBCE07; }
+
         /* ===== Comparison ===== */
         .comparison-controls {
             display: flex;
@@ -295,6 +337,7 @@
             <span>🏛️</span> Welsh Museums Digital Metrics
         </div>
         <ul class="nav-menu">
+            <li class="nav-item"><a href="#analysis">Analysis</a></li>
             <li class="nav-item"><a href="#overview">Overview</a></li>
             <li class="nav-item"><a href="#charts">Charts</a></li>
             <li class="nav-item"><a href="#comparison">Comparison</a></li>
@@ -307,6 +350,40 @@
 </nav>
 
 <main>
+
+    <!-- Analysis Section -->
+    <section id="analysis">
+        <h2 class="section-title">🔍 Key Findings</h2>
+        <div class="analysis-intro">
+            This dashboard analyses <strong>116 Welsh museums</strong> across digital metrics including website performance, content readability, digitisation depth, and digital growth. Data was collected from Companies House records and automated web audits (Lighthouse). <strong>18 museums (16%)</strong> had no traceable digital presence and are excluded from metric averages.
+        </div>
+        <div class="analysis-grid">
+            <div class="analysis-card warning">
+                <h3>📉 Digital Growth is Highly Unequal</h3>
+                <p>The median digital growth score is just <strong>55.8</strong>, yet the mean is <strong>1,314</strong> — driven by a handful of large outliers. <strong>60% of museums score below 100</strong>, while only 26% exceed 1,000. The top three (Aberconwy House, Chirk Castle, Conwy Toll House) all share the maximum recorded score of <strong>7,795</strong>, likely reflecting shared National Trust digital infrastructure.</p>
+            </div>
+            <div class="analysis-card highlight">
+                <h3>📷 Digitisation Levels Remain Low</h3>
+                <p>The average digitisation score is <strong>32 out of 100</strong> (median 31), indicating most collections have limited online digital presence. Only <strong>13% of museums score above 50</strong>, while <strong>20% score below 20</strong> — suggesting a significant portion of Welsh museum collections are not yet discoverable online.</p>
+            </div>
+            <div class="analysis-card highlight">
+                <h3>🐢 Website Performance is a Weakness</h3>
+                <p>Average Lighthouse performance score is <strong>44%</strong>, and <strong>60% of museum websites score below 50%</strong>. Slow page loads risk deterring online visitors. This represents the most widespread technical failure across the sector and suggests a systemic need for web performance optimisation.</p>
+            </div>
+            <div class="analysis-card positive">
+                <h3>♿ Accessibility is a Relative Strength</h3>
+                <p>Average Lighthouse accessibility score is <strong>85%</strong> — the strongest technical metric across the dataset. <strong>35% of museums achieve 90% or higher</strong>. While room for improvement exists, this suggests the sector has prioritised accessible design more than performance or SEO.</p>
+            </div>
+            <div class="analysis-card positive">
+                <h3>📖 Content Readability is Generally Good</h3>
+                <p>Average Flesch Reading Ease score is <strong>67.2</strong> (classed as "Standard" — roughly GCSE level). <strong>80% of museum websites score 60 or above</strong>, and only 2% have particularly difficult content (below 50). Museum web content is largely accessible to a broad public audience.</p>
+            </div>
+            <div class="analysis-card warning">
+                <h3>🔎 SEO Lags Behind Accessibility</h3>
+                <p>Average Lighthouse SEO score mirrors performance at <strong>44%</strong> — well below the accessibility score. Poor SEO means many museum websites are likely underrepresented in search engine results, reducing their discoverability to new audiences and limiting organic digital reach.</p>
+            </div>
+        </div>
+    </section>
 
     <!-- Overview Section (from components/overview.html) -->
     <section id="overview">
