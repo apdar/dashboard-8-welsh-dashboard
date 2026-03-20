@@ -12,25 +12,25 @@
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
             line-height: 1.6;
-            color: #333;
+            color: #1D1D1B;
             background-color: #f5f5f5;
         }
 
         /* Navigation */
         .dashboard-nav {
-            background-color: #2c3e50;
+            background-color: #1D1D1B;
             color: white;
             position: sticky;
             top: 0;
             z-index: 100;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+            box-shadow: 0 2px 6px rgba(0,0,0,0.4);
         }
         .nav-top {
             padding: 0.75rem 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
+            border-bottom: 1px solid rgba(251,206,7,0.25);
         }
         .nav-brand {
             font-size: 1.3rem;
@@ -38,6 +38,7 @@
             display: flex;
             align-items: center;
             gap: 0.5rem;
+            color: #FBCE07;
         }
         .nav-brand span { font-size: 1.5rem; }
         .nav-menu { display: flex; list-style: none; gap: 1.5rem; }
@@ -50,22 +51,23 @@
             font-size: 0.95rem;
         }
         .nav-item a:hover, .nav-item a.active {
-            background: rgba(255,255,255,0.15);
-            color: white;
+            background: #FBCE07;
+            color: #1D1D1B;
+            font-weight: 600;
         }
         /* Header stats strip */
         .nav-stats {
             display: flex;
             gap: 0;
             overflow-x: auto;
-            background: rgba(0,0,0,0.2);
+            background: #FBCE07;
         }
         .nav-stat {
             display: flex;
             flex-direction: column;
             align-items: center;
             padding: 0.5rem 1.5rem;
-            border-right: 1px solid rgba(255,255,255,0.08);
+            border-right: 1px solid rgba(29,29,27,0.15);
             white-space: nowrap;
             min-width: 110px;
         }
@@ -73,15 +75,15 @@
         .nav-stat-value {
             font-size: 1.2rem;
             font-weight: 700;
-            color: #fff;
+            color: #1D1D1B;
             line-height: 1.2;
         }
-        .nav-stat-value.accent { color: #5dade2; }
-        .nav-stat-value.green  { color: #58d68d; }
-        .nav-stat-value.orange { color: #f0b27a; }
+        .nav-stat-value.accent { color: #DD1D21; }
+        .nav-stat-value.green  { color: #1a7a3e; }
+        .nav-stat-value.orange { color: #7B4400; }
         .nav-stat-label {
             font-size: 0.7rem;
-            color: rgba(255,255,255,0.55);
+            color: rgba(29,29,27,0.6);
             text-transform: uppercase;
             letter-spacing: 0.05em;
             margin-top: 0.1rem;
@@ -94,10 +96,10 @@
         .section-title {
             font-size: 1.5rem;
             font-weight: 700;
-            color: #2c3e50;
+            color: #1D1D1B;
             margin-bottom: 1.25rem;
             padding-bottom: 0.5rem;
-            border-bottom: 3px solid #3498db;
+            border-bottom: 3px solid #FBCE07;
             display: flex;
             align-items: center;
             gap: 0.5rem;
@@ -116,21 +118,21 @@
             padding: 1.25rem 1.5rem;
             border-radius: 10px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-            border-left: 4px solid #3498db;
+            border-left: 4px solid #FBCE07;
             transition: transform 0.2s, box-shadow 0.2s;
         }
         .overview-card:hover { transform: translateY(-3px); box-shadow: 0 6px 16px rgba(0,0,0,0.12); }
         .overview-card h3 { font-size: 0.85rem; color: #666; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.5rem; }
-        .stat-value { font-size: 2rem; font-weight: 700; color: #2c3e50; line-height: 1.2; }
+        .stat-value { font-size: 2rem; font-weight: 700; color: #1D1D1B; line-height: 1.2; }
         .stat-sub { font-size: 0.8rem; color: #888; margin-top: 0.25rem; }
         .overview-card.green { border-color: #27ae60; }
         .overview-card.green .stat-value { color: #27ae60; }
         .overview-card.orange { border-color: #e67e22; }
         .overview-card.orange .stat-value { color: #e67e22; }
-        .overview-card.red { border-color: #e74c3c; }
-        .overview-card.red .stat-value { color: #e74c3c; }
-        .overview-card.purple { border-color: #9b59b6; }
-        .overview-card.purple .stat-value { color: #9b59b6; }
+        .overview-card.red { border-color: #DD1D21; }
+        .overview-card.red .stat-value { color: #DD1D21; }
+        .overview-card.purple { border-color: #DD1D21; }
+        .overview-card.purple .stat-value { color: #DD1D21; }
 
         /* ===== Charts ===== */
         .charts-grid {
@@ -147,7 +149,7 @@
         .chart-component h3 {
             font-size: 1rem;
             font-weight: 600;
-            color: #2c3e50;
+            color: #1D1D1B;
             margin-bottom: 1rem;
             text-align: center;
         }
@@ -171,7 +173,7 @@
             cursor: pointer;
             min-width: 260px;
         }
-        .comparison-select:focus { outline: none; border-color: #3498db; box-shadow: 0 0 0 2px rgba(52,152,219,0.2); }
+        .comparison-select:focus { outline: none; border-color: #FBCE07; box-shadow: 0 0 0 2px rgba(251,206,7,0.3); }
         #comparison-result { margin-top: 0.5rem; }
         .comparison-stats {
             display: grid;
@@ -187,7 +189,7 @@
             text-align: center;
         }
         .stat-box .label { font-size: 0.8rem; color: #888; text-transform: uppercase; letter-spacing: 0.05em; }
-        .stat-box .value { font-size: 1.75rem; font-weight: 700; color: #3498db; margin: 0.25rem 0; }
+        .stat-box .value { font-size: 1.75rem; font-weight: 700; color: #DD1D21; margin: 0.25rem 0; }
         .stat-box .sub { font-size: 0.8rem; color: #aaa; }
         .comparison-chart-wrap { background: white; border-radius: 10px; padding: 1.5rem; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
 
@@ -207,7 +209,7 @@
             border-radius: 6px;
             font-size: 0.95rem;
         }
-        .search-input:focus { outline: none; border-color: #3498db; box-shadow: 0 0 0 2px rgba(52,152,219,0.2); }
+        .search-input:focus { outline: none; border-color: #FBCE07; box-shadow: 0 0 0 2px rgba(251,206,7,0.3); }
         .filter-select {
             padding: 0.5rem 1rem;
             border: 1px solid #ddd;
@@ -224,7 +226,7 @@
         .table-scroll { overflow-x: auto; }
         table { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
         th {
-            background-color: #2c3e50;
+            background-color: #1D1D1B;
             color: white;
             padding: 0.75rem 1rem;
             text-align: left;
@@ -233,7 +235,7 @@
             cursor: pointer;
             user-select: none;
         }
-        th:hover { background-color: #3d5166; }
+        th:hover { background-color: #3a3a38; }
         th .sort-icon { margin-left: 4px; opacity: 0.5; font-size: 0.75rem; }
         th.sorted-asc .sort-icon::after { content: " ▲"; opacity: 1; }
         th.sorted-desc .sort-icon::after { content: " ▼"; opacity: 1; }
@@ -242,7 +244,7 @@
             border-bottom: 1px solid #f0f0f0;
             vertical-align: middle;
         }
-        tr:hover td { background-color: #f8fbff; }
+        tr:hover td { background-color: #fffbf0; }
         tr:last-child td { border-bottom: none; }
         .badge {
             display: inline-block;
@@ -253,7 +255,7 @@
         }
         .badge-active { background: #d5f5e3; color: #1e8449; }
         .badge-dissolved { background: #fdecea; color: #c0392b; }
-        .badge-other { background: #eaf2ff; color: #2980b9; }
+        .badge-other { background: #fff8e1; color: #7B4400; }
         .table-footer {
             padding: 0.75rem 1rem;
             background: #f8f9fa;
@@ -263,12 +265,12 @@
         }
         .score-bar-wrap { display: flex; align-items: center; gap: 0.5rem; min-width: 90px; }
         .score-bar { height: 6px; border-radius: 3px; background: #e8e8e8; flex: 1; overflow: hidden; }
-        .score-bar-fill { height: 100%; border-radius: 3px; background: #3498db; transition: width 0.3s; }
+        .score-bar-fill { height: 100%; border-radius: 3px; background: #FBCE07; transition: width 0.3s; }
         .score-bar-fill.good { background: #27ae60; }
         .score-bar-fill.mid { background: #e67e22; }
-        .score-bar-fill.bad { background: #e74c3c; }
+        .score-bar-fill.bad { background: #DD1D21; }
         .score-num { font-size: 0.8rem; color: #555; white-space: nowrap; min-width: 30px; text-align: right; }
-        .url-link { color: #3498db; text-decoration: none; font-size: 0.8rem; }
+        .url-link { color: #DD1D21; text-decoration: none; font-size: 0.8rem; }
         .url-link:hover { text-decoration: underline; }
 
         /* No-data */
@@ -426,7 +428,7 @@ function createOverview() {
 // ===== 2. Charts (components/chart.html pattern) =====
 function createCharts() {
     const CHART_COLORS = [
-        '#3498db','#27ae60','#e67e22','#e74c3c','#9b59b6','#1abc9c','#f39c12','#2980b9'
+        '#FBCE07','#27ae60','#DD1D21','#e67e22','#1D1D1B','#3a7a5e','#7B4400','#5a5a58'
     ];
 
     // --- Company status pie ---
@@ -466,7 +468,7 @@ function createCharts() {
                 datasets: [{
                     label: 'Average Score (%)',
                     data: avgs,
-                    backgroundColor: ['#3498db','#e67e22','#27ae60'],
+                    backgroundColor: ['#FBCE07','#e67e22','#27ae60'],
                     borderRadius: 6,
                 }]
             },
@@ -497,7 +499,7 @@ function createCharts() {
                 datasets: [{
                     label: 'Digital Growth Score',
                     data: values,
-                    backgroundColor: '#3498db',
+                    backgroundColor: '#FBCE07',
                     borderRadius: 4,
                 }]
             },
@@ -530,7 +532,7 @@ function createCharts() {
                 datasets: [{
                     label: 'Number of Museums',
                     data: counts,
-                    backgroundColor: '#9b59b6',
+                    backgroundColor: '#DD1D21',
                     borderRadius: 4,
                 }]
             },
@@ -642,7 +644,9 @@ function displayComparison(field) {
             datasets: [{
                 label: field.label,
                 data: display.map(d => d.val),
-                backgroundColor: display.map(d => d.val >= av ? '#3498db' : '#e67e22'),
+                backgroundColor: display.map(d => d.val >= av ? '#FBCE07' : 'rgba(221,29,33,0.25)'),
+                borderColor: display.map(d => d.val >= av ? '#7B4400' : '#DD1D21'),
+                borderWidth: 1,
                 borderRadius: 4,
             }]
         },
